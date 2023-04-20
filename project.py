@@ -8,6 +8,7 @@ app.config['MYSQL_USER'] = 'doadmin'
 app.config['MYSQL_PASSWORD'] = 'AVNS_iekf-iUCAa2j1CQclFk'
 app.config['MYSQL_DB'] = 'defaultdb'
 app.config['MYSQL_PORT'] = '25060'
+print("connected db")
 
 
 
