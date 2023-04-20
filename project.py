@@ -6,7 +6,7 @@ app.secret_key = 'mysecretkey'
 app.config['MYSQL_HOST'] = 'db-ro-mysql-blr1-07752-do-user-13944396-0.b.db.ondigitalocean.com'
 app.config['MYSQL_USER'] = 'doadmin'
 app.config['MYSQL_PASSWORD'] = 'AVNS_iekf-iUCAa2j1CQclFk'
-app.config['MYSQL_DB'] = 'db-mysql-nyc1-21001'
+app.config['MYSQL_DB'] = 'defaultdb'
 
 mysql = MySQL(app)
 
