@@ -7,7 +7,7 @@ app.config['MYSQL_HOST'] = 'db-mysql-nyc1-21001-do-user-13944396-0.b.db.ondigita
 app.config['MYSQL_USER'] = 'doadmin'
 app.config['MYSQL_PASSWORD'] = 'AVNS_iekf-iUCAa2j1CQclFk'
 app.config['MYSQL_DB'] = 'defaultdb'
-app.config['MYSQL_PORT'] = '25060'
+app.config['MYSQL_PORT'] = 25060
 
 
 
