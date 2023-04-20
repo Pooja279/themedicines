@@ -17,81 +17,87 @@ mysql = MySQL(app)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-	# database connection
-	cursor = mysql.connection.cursor()
-	
-	# SQL query for create data tables
-	cursor.execute("""CREATE TABLE IF NOT EXISTS bookingApointment (
-		id INT auto_increment,
-		user_id INT,
-		appointment_date DATE,
-		desired VARCHAR(10),
-		confirmation_requested_by VARCHAR(10),
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS user (
-		id INT auto_increment,
-		username VARCHAR(255),
-		city  VARCHAR(255),	
-		contact INT,
-		email VARCHAR(255),
-		password VARCHAR(255),
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS symptoms (
-		id INT auto_increment,
-		name VARCHAR(50),
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS doctor (
-		id INT auto_increment,
-		name VARCHAR(255),
-		specialist  VARCHAR(255),	
-		experince VARCHAR(255),
-		location VARCHAR(20),
-		degree VARCHAR(20),
-		symptoms_id INT,	
-		available_time DATETIME,
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS product (
-		id INT auto_increment,
-		name VARCHAR(50),
-		description VARCHAR(50),
-		price INT,
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS contact (
-		id INT auto_increment,
-		name VARCHAR(50),
-		email VARCHAR(50),
-		message TEXT,
-		primary key (id)
-	)""")
-	cursor.execute("""CREATE TABLE IF NOT EXISTS cart (
-		id INT auto_increment,
-		qty INT,
-		pro_id INT,
-		user_id INT,
-		primary key (id)
-	)""")
+
+	try:
+		# database connection
+		cursor = mysql.connection.cursor()
+		
+		# SQL query for create data tables
+		cursor.execute("""CREATE TABLE IF NOT EXISTS bookingApointment (
+			id INT auto_increment,
+			user_id INT,
+			appointment_date DATE,
+			desired VARCHAR(10),
+			confirmation_requested_by VARCHAR(10),
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS user (
+			id INT auto_increment,
+			username VARCHAR(255),
+			city  VARCHAR(255),	
+			contact INT,
+			email VARCHAR(255),
+			password VARCHAR(255),
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS symptoms (
+			id INT auto_increment,
+			name VARCHAR(50),
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS doctor (
+			id INT auto_increment,
+			name VARCHAR(255),
+			specialist  VARCHAR(255),	
+			experince VARCHAR(255),
+			location VARCHAR(20),
+			degree VARCHAR(20),
+			symptoms_id INT,	
+			available_time DATETIME,
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS product (
+			id INT auto_increment,
+			name VARCHAR(50),
+			description VARCHAR(50),
+			price INT,
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS contact (
+			id INT auto_increment,
+			name VARCHAR(50),
+			email VARCHAR(50),
+			message TEXT,
+			primary key (id)
+		)""")
+		cursor.execute("""CREATE TABLE IF NOT EXISTS cart (
+			id INT auto_increment,
+			qty INT,
+			pro_id INT,
+			user_id INT,
+			primary key (id)
+		)""")
 
 
-	list_p = cursor.execute("SELECT * from product")
-	list_product =  cursor.fetchall()
-	print(list_product)
-	mysql.connection.commit()
-	if request.method == 'POST':
-		username = request.form.get('username')
-		city = request.form.get('city')
-		contact = request.form.get('contact')
-		email = request.form.get('email')
-		password = request.form.get('password')
-		cursor.execute('INSERT INTO user VALUES (%s,%s,%s,%s,%s,%s)',(username,city,contact,email,password))
+		list_p = cursor.execute("SELECT * from product")
+		list_product =  cursor.fetchall()
+		print(list_product)
 		mysql.connection.commit()
-		cursor.close()
-		return 'Data added'
-	return render_template('index.html', list_product=list_product)
+		if request.method == 'POST':
+			username = request.form.get('username')
+			city = request.form.get('city')
+			contact = request.form.get('contact')
+			email = request.form.get('email')
+			password = request.form.get('password')
+			cursor.execute('INSERT INTO user VALUES (%s,%s,%s,%s,%s,%s)',(username,city,contact,email,password))
+			mysql.connection.commit()
+			cursor.close()
+			return 'Data added'
+		return render_template('index.html', list_product=list_product)
+	except Exception as E:
+		print(E)
+		return render_template('index.html')
+
 
 @app.route('/login',methods=['GET','POST'])
 def login():
