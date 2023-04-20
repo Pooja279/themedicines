@@ -99,7 +99,7 @@ def login():
 		cursor = mysql.connection.cursor()
 		username = request.form.get('username')
 		password = request.form.get('password')
-		print('======>> ',username, password);
+		print('======>> ',username, password)
 		#cur = mysql.connection.cursor(MySQLdb.cursors.DictCufrom flask import Flask,render_template,request,session,url_for,redirectrsor)
 		cursor.execute('SELECT * FROM user where username = %s and password = %s', (username,password,))
 		user = cursor.fetchone()
