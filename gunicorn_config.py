@@ -1,6 +1,2 @@
-
-from project import app
-
-
-if __name__ == "__main__":
-    app.run()
+bind = "0.0.0.0:80"
+workers = 2
